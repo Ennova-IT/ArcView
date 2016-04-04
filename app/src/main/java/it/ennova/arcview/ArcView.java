@@ -5,6 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.util.AttributeSet;
@@ -17,7 +19,7 @@ import it.ennova.arcview.internals.ArcViewUtils;
 public class ArcView extends View implements View.OnTouchListener {
     private final static int NUMBER_OF_SLICES = 4;
 
-    final boolean selected[] = new boolean[NUMBER_OF_SLICES];
+    boolean selected[] = new boolean[NUMBER_OF_SLICES];
     @ColorInt
     final int selectedColors[] = new int[NUMBER_OF_SLICES];
     @ColorInt
@@ -25,6 +27,9 @@ public class ArcView extends View implements View.OnTouchListener {
 
     private RectF targetRect = new RectF(0, 0, 0, 0);
     private final Paint targetPaint = new Paint();
+
+    private static final String SUPERSTATE_KEY = "superState";
+    private static final String SELECTED_KEY = "selected";
 
     public ArcView(Context context) {
         this(context, null);
@@ -50,6 +55,24 @@ public class ArcView extends View implements View.OnTouchListener {
             this.selectedColors[i] = selectedColors[i];
             this.unselectedColors[i] = unselectedColors[i];
         }
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(SUPERSTATE_KEY, super.onSaveInstanceState());
+        bundle.putBooleanArray(SELECTED_KEY, selected);
+        return bundle;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (state instanceof Bundle) {
+            Bundle bundle = (Bundle) state;
+            selected = bundle.getBooleanArray(SELECTED_KEY);
+            state = bundle.getParcelable(SUPERSTATE_KEY);
+        }
+        super.onRestoreInstanceState(state);
     }
 
     @Override

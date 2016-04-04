@@ -10,6 +10,7 @@
     tools:context="it.ennova.arcview.MainActivity">
 
     <it.ennova.arcview.ArcView
+        android:id="@+id/arcView"
         android:layout_centerHorizontal="true"
         android:layout_width="300dp"
         android:layout_height="300dp" />
