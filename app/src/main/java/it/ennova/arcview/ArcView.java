@@ -8,7 +8,6 @@ import android.graphics.RectF;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.util.AttributeSet;
-import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -17,14 +16,6 @@ import it.ennova.arcview.internals.ArcViewUtils;
 
 public class ArcView extends View implements View.OnTouchListener {
     private final static int NUMBER_OF_SLICES = 4;
-
-    private static final int TOP = 0;
-    private static final int LEFT = 0;
-    private static final int BOTTOM = 800 + TOP;
-    private static final int RIGHT = 800 + LEFT;
-
-    private static final int HALF_SIDE = RIGHT / 2;
-    private static final int HALF_HEIGHT = BOTTOM / 2;
 
     final boolean selected[] = new boolean[NUMBER_OF_SLICES];
     @ColorInt
@@ -88,7 +79,7 @@ public class ArcView extends View implements View.OnTouchListener {
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        int square = getVerticalQuadrantFrom(event.getY(), getInterestedQuadrantsFrom(event.getX()));
+        int square = ArcViewUtils.getQuadrantIndexFrom(v, event);
 
         if (square > -1) {
             selected[square] = !selected[square];
@@ -96,25 +87,5 @@ public class ArcView extends View implements View.OnTouchListener {
         }
 
         return false;
-    }
-
-    private int getVerticalQuadrantFrom(float y, Pair<Integer, Integer> quadrants) {
-        if (y >= TOP && y < HALF_HEIGHT) {
-            return quadrants.first;
-        } else if (y >= HALF_HEIGHT && y <= BOTTOM) {
-            return quadrants.second;
-        }
-
-        return -1;
-    }
-
-    private Pair<Integer, Integer> getInterestedQuadrantsFrom(float x) {
-        if (x >= HALF_SIDE && x <= RIGHT) {
-            return new Pair<>(3,0);
-        } else if (x >= LEFT && x < HALF_SIDE) {
-            return new Pair<>(2,1);
-        }
-
-        return new Pair<>(-1, -1);
     }
 }
