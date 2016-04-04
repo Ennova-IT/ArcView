@@ -14,6 +14,9 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import it.ennova.arcview.internals.ArcViewUtils;
 
 
@@ -74,6 +77,18 @@ public class ArcView extends View implements View.OnTouchListener {
         this.selectedColors = selectedColors;
         this.unselectedColors = unselectedColors;
         invalidate();
+    }
+
+    public List<Integer> getSelectedSlots() {
+        List<Integer> selectedIds = new ArrayList<>();
+
+        for (int i = 0; i < selected.length; i++) {
+            if (selected[i]) {
+                selectedIds.add(i);
+            }
+        }
+
+        return selectedIds;
     }
 
     @Override
