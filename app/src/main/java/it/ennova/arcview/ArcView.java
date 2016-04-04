@@ -5,21 +5,21 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
+
+import it.ennova.arcview.internals.ArcViewUtils;
 
 
 public class ArcView extends View implements View.OnTouchListener {
     private final static int NUMBER_OF_SLICES = 4;
 
-    private static final int TOP = 10;
-    private static final int LEFT = 50;
+    private static final int TOP = 0;
+    private static final int LEFT = 0;
     private static final int BOTTOM = 800 + TOP;
     private static final int RIGHT = 800 + LEFT;
 
@@ -32,7 +32,7 @@ public class ArcView extends View implements View.OnTouchListener {
     @ColorInt
     final int unselectedColors[] = new int[NUMBER_OF_SLICES];
 
-    private final RectF targetRect = new RectF(LEFT, TOP, RIGHT, BOTTOM);
+    private RectF targetRect = new RectF(0, 0, 0, 0);
     private final Paint targetPaint = new Paint();
 
     public ArcView(Context context) {
@@ -63,6 +63,8 @@ public class ArcView extends View implements View.OnTouchListener {
 
     @Override
     protected void onDraw(Canvas canvas) {
+
+        ArcViewUtils.updateSizeOf(targetRect, canvas);
         targetPaint.setColor(Color.RED);
         targetPaint.setStyle(Paint.Style.FILL);
         targetPaint.setAntiAlias(true);
@@ -83,15 +85,6 @@ public class ArcView extends View implements View.OnTouchListener {
         }
         canvas.drawArc(targetRect, index * 90, 90, true, targetPaint);
     }
-
-    private int getColor(@ColorRes int colorRes) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return getContext().getColor(colorRes);
-        } else {
-            return getContext().getResources().getColor(colorRes);
-        }
-    }
-
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
