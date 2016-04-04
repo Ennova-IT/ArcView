@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ArcView">
+        <attr name="arc_textColor" format="color|reference" />
+        <attr name="arc_selectedColors" format="reference" />
+        <attr name="arc_unselectedColors" format="reference" />
+        <attr name="arc_timeslots" format="reference" />
+    </declare-styleable>
+</resources>

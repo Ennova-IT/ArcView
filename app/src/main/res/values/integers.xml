@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <integer-array name="selected_colors">
+    <integer-array name="arcview_default_selected_colors">
         <item>@color/arcview_first_selected</item>
         <item>@color/arcview_second_selected</item>
         <item>@color/arcview_third_selected</item>
         <item>@color/arcview_fourth_selected</item>
     </integer-array>
 
-    <integer-array name="unselected_colors">
+    <integer-array name="arcview_default_unselected_colors">
         <item>@color/arcview_first_unselected</item>
         <item>@color/arcview_second_unselected</item>
         <item>@color/arcview_third_unselected</item>
         <item>@color/arcview_fourth_unselected</item>
     </integer-array>
+
 </resources>

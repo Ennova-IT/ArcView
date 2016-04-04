@@ -1,6 +1,8 @@
 package it.ennova.arcview;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,9 +10,11 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -25,15 +29,16 @@ public class ArcView extends View implements View.OnTouchListener {
     private final float TEXT_SIZE_PIXEL = 20 * DENSITY_MULTIPLIER;
     private final String TEXT_SAMPLE = "1234567890";
 
-    boolean selected[] = new boolean[NUMBER_OF_SLICES];
+    boolean selected[] = {true, true, true, true};
     @ColorInt
-    final int selectedColors[] = new int[NUMBER_OF_SLICES];
+    int selectedColors[];
     @ColorInt
-    final int unselectedColors[] = new int[NUMBER_OF_SLICES];
-    final String times[] = new String[NUMBER_OF_SLICES];
+    int unselectedColors[];
+    String times[];
+    @ColorInt
+    int textColor;
 
     private RectF targetRect = new RectF();
-    private RectF roundRect = new RectF();
     private Rect textBounds = new Rect();
     private final Paint targetPaint = new Paint();
     private final Paint textPaint = new Paint();
@@ -53,22 +58,23 @@ public class ArcView extends View implements View.OnTouchListener {
         super(context, attrs, defStyleAttr);
         setFocusable(true);
         setOnTouchListener(this);
-        initSelectedArrayTo(true, getContext().getResources().getIntArray(R.array.selected_colors),
-                getContext().getResources().getIntArray(R.array.unselected_colors),
-                getContext().getResources().getStringArray(R.array.times));
+        initSelectedArrayTo(context, attrs);
     }
 
-    //TODO load stuff from XML
-    private void initSelectedArrayTo(boolean defaultValue, @ColorRes int[] selectedColors,
-                                     @ColorRes int[] unselectedColors, String[] times) {
+    private void initSelectedArrayTo(Context context, AttributeSet attrs) {
 
-        for (int i = 0; i < NUMBER_OF_SLICES; i++) {
-            selected[i] = defaultValue;
-            this.selectedColors[i] = selectedColors[i];
-            this.unselectedColors[i] = unselectedColors[i];
-            this.times[i] = times[i];
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ArcView, 0, 0);
+        try {
+            textColor = a.getColor(R.styleable.ArcView_arc_textColor, Color.BLACK);
+            selectedColors = context.getResources().getIntArray(a.getResourceId(R.styleable.ArcView_arc_selectedColors, 0));
+            unselectedColors = context.getResources().getIntArray(a.getResourceId(R.styleable.ArcView_arc_unselectedColors, 0));
+            times = context.getResources().getStringArray(a.getResourceId(R.styleable.ArcView_arc_timeslots, 0));
+        } finally {
+            a.recycle();
         }
     }
+
+
 
     @Override
     protected Parcelable onSaveInstanceState() {
@@ -116,7 +122,7 @@ public class ArcView extends View implements View.OnTouchListener {
         textPaint.getTextBounds(TEXT_SAMPLE, 0, TEXT_SAMPLE.length(), textBounds);
         float x = canvas.getWidth() * COEFFS_W[index];
         float y = canvas.getHeight() * COEFFS_H[index] + textBounds.height()/2;
-        targetPaint.setColor(Color.BLACK);
+        targetPaint.setColor(textColor);
         canvas.drawText(times[index], x, y, targetPaint);
     }
 
