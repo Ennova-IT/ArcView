@@ -1,7 +1,6 @@
 package it.ennova.arcview;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,11 +9,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.ArrayRes;
 import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -29,14 +25,14 @@ public class ArcView extends View implements View.OnTouchListener {
     private final float TEXT_SIZE_PIXEL = 20 * DENSITY_MULTIPLIER;
     private final String TEXT_SAMPLE = "1234567890";
 
-    boolean selected[] = {true, true, true, true};
+    private boolean selected[] = {true, true, true, true};
     @ColorInt
-    int selectedColors[];
+    private int selectedColors[];
     @ColorInt
-    int unselectedColors[];
-    String times[];
+    private int unselectedColors[];
+    private String times[];
     @ColorInt
-    int textColor;
+    private int textColor;
 
     private RectF targetRect = new RectF();
     private Rect textBounds = new Rect();
@@ -74,7 +70,11 @@ public class ArcView extends View implements View.OnTouchListener {
         }
     }
 
-
+    public void updateColorsWith(@ColorInt int[] selectedColors, @ColorInt int[] unselectedColors) {
+        this.selectedColors = selectedColors;
+        this.unselectedColors = unselectedColors;
+        invalidate();
+    }
 
     @Override
     protected Parcelable onSaveInstanceState() {

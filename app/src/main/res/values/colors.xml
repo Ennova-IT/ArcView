@@ -13,4 +13,13 @@
     <color name="arcview_third_unselected">#DCEDC8</color>
     <color name="arcview_fourth_selected">#673AB7</color>
     <color name="arcview_fourth_unselected">#D1C4E9</color>
+
+    <color name="arcview_first_selected_two">#03A9F4</color>
+    <color name="arcview_first_unselected_two">#B3E5FC</color>
+    <color name="arcview_second_selected_two">#03A9F4</color>
+    <color name="arcview_second_unselected_two">#B3E5FC</color>
+    <color name="arcview_third_selected_two">#03A9F4</color>
+    <color name="arcview_third_unselected_two">#B3E5FC</color>
+    <color name="arcview_fourth_selected_two">#03A9F4</color>
+    <color name="arcview_fourth_unselected_two">#B3E5FC</color>
 </resources>

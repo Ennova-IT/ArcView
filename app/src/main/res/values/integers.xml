@@ -15,4 +15,18 @@
         <item>@color/arcview_fourth_unselected</item>
     </integer-array>
 
+    <integer-array name="selected_colors">
+        <item>@color/arcview_first_selected_two</item>
+        <item>@color/arcview_second_selected_two</item>
+        <item>@color/arcview_third_selected_two</item>
+        <item>@color/arcview_fourth_selected_two</item>
+    </integer-array>
+
+    <integer-array name="unselected_colors">
+        <item>@color/arcview_first_unselected_two</item>
+        <item>@color/arcview_second_unselected_two</item>
+        <item>@color/arcview_third_unselected_two</item>
+        <item>@color/arcview_fourth_unselected_two</item>
+    </integer-array>
+
 </resources>
