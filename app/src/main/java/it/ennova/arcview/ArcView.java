@@ -92,14 +92,10 @@ public class ArcView extends View implements View.OnTouchListener {
     protected void onDraw(Canvas canvas) {
 
         ArcViewUtils.updateSizeOf(targetRect, canvas);
-        targetPaint.setColor(Color.RED);
         targetPaint.setStyle(Paint.Style.FILL);
         targetPaint.setAntiAlias(true);
         targetPaint.setTextAlign(Paint.Align.CENTER);
         targetPaint.setTextSize(TEXT_SIZE_PIXEL);
-
-
-        canvas.drawColor(Color.GRAY);
 
         for (int i = 0; i < NUMBER_OF_SLICES; i++) {
             drawArc(i, canvas);
