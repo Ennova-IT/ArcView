@@ -36,9 +36,9 @@ public class ArcViewUtils {
         final int HALF_SIDE = RIGHT / 2;
 
         if (x >= HALF_SIDE && x <= RIGHT) {
-            return new Pair<>(3,0);
+            return new Pair<>(3, 0);
         } else if (x >= 0 && x < HALF_SIDE) {
-            return new Pair<>(2,1);
+            return new Pair<>(2, 1);
         }
 
         return new Pair<>(-1, -1);
