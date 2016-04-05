@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
     int[] unselectedColors1;
     int[] unselectedColors2;
 
+    private static final String FIRST_KEY = "isFirst";
     private boolean isFirst = true;
 
     private ArcView arcView;
@@ -35,5 +36,17 @@ public class MainActivity extends AppCompatActivity {
             arcView.updateColorsWith(selectedColors1, unselectedColors1);
             isFirst = true;
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(FIRST_KEY, isFirst);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        isFirst = savedInstanceState.getBoolean(FIRST_KEY, isFirst);
     }
 }

@@ -44,6 +44,8 @@ public class ArcView extends View implements View.OnTouchListener {
 
     private static final String SUPERSTATE_KEY = "superState";
     private static final String SELECTED_KEY = "selected";
+    private static final String SELECTEDCOLORS_KEY = "selectedColors";
+    private static final String UNSELECTEDCOLORS_KEY = "unselectedColors";
 
     public ArcView(Context context) {
         this(context, null);
@@ -96,6 +98,8 @@ public class ArcView extends View implements View.OnTouchListener {
         Bundle bundle = new Bundle();
         bundle.putParcelable(SUPERSTATE_KEY, super.onSaveInstanceState());
         bundle.putBooleanArray(SELECTED_KEY, selected);
+        bundle.putIntArray(SELECTEDCOLORS_KEY, selectedColors);
+        bundle.putIntArray(UNSELECTEDCOLORS_KEY, unselectedColors);
         return bundle;
     }
 
@@ -104,6 +108,8 @@ public class ArcView extends View implements View.OnTouchListener {
         if (state instanceof Bundle) {
             Bundle bundle = (Bundle) state;
             selected = bundle.getBooleanArray(SELECTED_KEY);
+            selectedColors = bundle.getIntArray(SELECTEDCOLORS_KEY);
+            unselectedColors = bundle.getIntArray(UNSELECTEDCOLORS_KEY);
             state = bundle.getParcelable(SUPERSTATE_KEY);
         }
         super.onRestoreInstanceState(state);
